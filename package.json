@@ -1,0 +1,28 @@
+{
+  "name": "acme-pre-work2",
+  "version": "1.0.0",
+  "description": "acme-pre-work weekend project week 1",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "webpack": "./node_modules/webpack/bin/webpack.js -w",
+    "start:dev": "npm run webpack -- -w & http-server -c-1",
+    "myOwnTest": "echo My test is running!"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/kjalnes/acme-pre-work.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/kjalnes/acme-pre-work/issues"
+  },
+  "homepage": "https://github.com/kjalnes/acme-pre-work#readme",
+  "dependencies": {
+    "babel-core": "^6.21.0",
+    "babel-loader": "^6.2.10",
+    "babel-preset-es2015": "^6.18.0",
+    "webpack": "^1.14.0"
+  }
+}
