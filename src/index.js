@@ -1,8 +1,30 @@
-import Foo from './AcmeDB'
+import AcmeDB from './AcmeDB'
 import Bar from './anotherJSfile'
 
-var hello = new Foo("wes");
-console.log(hello.sayHi());
+const users = [
+  { name: 'Moe' }
+];
 
-var foodILikw = new Bar('pizza');
-console.log(foodILikw.sayFaveFood());
+const db = new AcmeDB({ users });
+
+console.log(db.users.length); //should equal 1
+console.log(db.users[0].id); //should equal 1
+
+db.addUser({ name: 'Larry' });
+
+console.log(db.showUsers()); //should be 'Moe, Larry'
+console.log(db.findById(2).name); //should be Larry
+
+db.addUser({ name: 'Curly' });
+db.removeUserById(1);
+
+console.log(db.users[0].name); //should be Larry
+
+db.editUser({ id: 2, name: 'Laary'});
+
+console.log(db.showUsers()); //should be 'Laary, Curly'
+
+var food = new Bar('pizza');
+food.faveFood();
+
+

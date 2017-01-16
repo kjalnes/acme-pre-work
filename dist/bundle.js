@@ -56,44 +56,99 @@
 
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
-	var hello = new _AcmeDB2.default("wes");
-	console.log(hello.sayHi());
+	var users = [{ name: 'Moe' }];
 
-	var foodILikw = new _anotherJSfile2.default('pizza');
-	console.log(foodILikw.sayFaveFood());
+	var db = new _AcmeDB2.default({ users: users });
+
+	console.log(db.users.length); //should equal 1
+	console.log(db.users[0].id); //should equal 1
+
+	db.addUser({ name: 'Larry' });
+
+	console.log(db.showUsers()); //should be 'Moe, Larry'
+	console.log(db.findById(2).name); //should be Larry
+
+	db.addUser({ name: 'Curly' });
+	db.removeUserById(1);
+
+	console.log(db.users[0].name); //should be Larry
+
+	db.editUser({ id: 2, name: 'Laary' });
+
+	console.log(db.showUsers()); //should be 'Laary, Curly'
+
+	var food = new _anotherJSfile2.default('pizza');
+	food.faveFood();
 
 /***/ },
 /* 1 */
 /***/ function(module, exports) {
 
-	"use strict";
+	'use strict';
 
 	Object.defineProperty(exports, "__esModule", {
-	   value: true
+	    value: true
 	});
 
 	var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
 
 	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
 
-	var Foo = function () {
-	   function Foo(name) {
-	      _classCallCheck(this, Foo);
+	var AcmeDB = function () {
+	    function AcmeDB(usersObj) {
+	        _classCallCheck(this, AcmeDB);
 
-	      this.name = name;
-	   }
+	        // access array of users
+	        this.users = usersObj.users;
+	        // add id property to initial users
+	        return this.users.forEach(function (user, index) {
+	            user.id = index + 1;
+	        });
+	    }
 
-	   _createClass(Foo, [{
-	      key: "sayHi",
-	      value: function sayHi() {
-	         console.log("Hello from " + this.name);
-	      }
-	   }]);
+	    _createClass(AcmeDB, [{
+	        key: 'addUser',
+	        value: function addUser(newUser) {
+	            var id = this.users.length + 1;
+	            newUser.id = id;
+	            this.users.push(newUser);
+	        }
+	    }, {
+	        key: 'showUsers',
+	        value: function showUsers() {
+	            return this.users.map(function (user) {
+	                return user.name;
+	            }).join(', ');
+	        }
+	    }, {
+	        key: 'findById',
+	        value: function findById(id) {
+	            return this.users.filter(function (user) {
+	                return user.id === id;
+	            })[0]; // always returns an array of one element
+	        }
+	    }, {
+	        key: 'removeUserById',
+	        value: function removeUserById(id) {
+	            this.users = this.users.filter(function (user) {
+	                return user.id !== id;
+	            });
+	        }
+	    }, {
+	        key: 'editUser',
+	        value: function editUser(userObj) {
+	            return this.users.forEach(function (user) {
+	                if (user.id === userObj.id) {
+	                    user.name = userObj.name;
+	                }
+	            });
+	        }
+	    }]);
 
-	   return Foo;
+	    return AcmeDB;
 	}();
 
-	exports.default = Foo;
+	exports.default = AcmeDB;
 
 /***/ },
 /* 2 */
@@ -117,9 +172,9 @@
 	    }
 
 	    _createClass(Bar, [{
-	        key: "sayFaveFood",
-	        value: function sayFaveFood() {
-	            console.log(this.food + " " + this.food + " " + this.food);
+	        key: "faveFood",
+	        value: function faveFood() {
+	            console.log("My fave food is " + this.food + "!");
 	        }
 	    }]);
 
