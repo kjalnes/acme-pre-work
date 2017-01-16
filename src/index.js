@@ -1,5 +1,5 @@
-import AcmeDB from './AcmeDB'
-import Bar from './anotherJSfile'
+import AcmeDB from './AcmeDB';
+import Bar from './anotherJSfile';
 
 const users = [
   { name: 'Moe' }
@@ -26,5 +26,3 @@ console.log(db.showUsers()); //should be 'Laary, Curly'
 
 var food = new Bar('pizza');
 food.faveFood();
-
-
